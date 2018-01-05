@@ -4,61 +4,82 @@ In a cross between Worms clone and Roguelike, you enter a dreamlike world of abs
 # Requirements
 Löve2D 0.10.2 or compatible
 
+# How to Build
+
+1. Update whatever .lua files.
+
+2. Run package.sh
+
+3. Optionally, rename the new .backup file to save it.
+
+
+# Pro-tips
+
+* Configure your controls in Properties.lua
+
+* If you change the level generating bits, you should probably delete the existing level cache. On Linux, this is ~/.local/share/love/HyperMind/levels/*.png
+
+
+# Information
 
 Roguelike elements:
 
-    Permadeath
+* Permadeath
 
-    Procedural world generation
+* Procedural world generation
 
-    Complex interaction of tools and environment
+* Complex interaction of objects and environment
+
 
 Departures from roguelikes:
 
-    No tiles
+* No tiles
 
-    Real-time gameplay
+* Real-time gameplay
 
-    No high fantasy
+* No high fantasy
+
 
 Minimal feature set:
 
-    Main menu: Continue | Restart
+* Main menu: Continue | Restart
 
-    Infinite world spanning the full range of emotive-cognitive space
+* Infinite world spanning the full range of emotive-cognitive space
 
-    Random generating seed | Specify a seed
+* Random generating seed | Specify a seed
 
-    Flat graphics
+* Flat graphics
 
-    Discover and retrieve tool parts
+* Discover and retrieve tool parts
 
-    Construct unique tools of escalating power from the tool parts
+* Construct unique tools of escalating power from the tool parts
 
-    Use the tools to traverse the world
+* Use the tools to traverse the world
 
-    Use the tools to erase, modify, or create thoughts and feelings
+* Use the tools to erase, modify, or create thoughts and feelings
 
-    Save/Load world
+* Save/Load world
 
-    Save/Load inventory
+* Save/Load inventory
 
-    New procedural sound for each unique tool
+* New procedural sound for each unique tool
 
-    Support for playing MP3's from the game directory
+* Support for playing MP3's from the game directory
+
 
 Extended feature set:
 
-    Procedural soundscape mirroring the current emotive-cognitive context
+* Procedural soundscape mirroring the current emotive-cognitive context
 
-    Immersive graphical experience
+* Immersive graphical experience
 
-    Cooperative and antagonist agents
+* Cooperative and antagonist agents
 
-    Much greater variety in world generation
+* Much greater variety in world generation 
 
-    More abilities
+* More abilities
 
-    More powerful
+* More powerful
 
-    Hot-seat mode
+* Hot-seat mode
+
