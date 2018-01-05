@@ -19,6 +19,8 @@ Löve2D 0.10.2 or compatible
 
 * If you change the level generating bits, you should probably delete the existing level cache. On Linux, this is ~/.local/share/love/HyperMind/levels/*.png
 
+* Holy hell do not look at the source, though. It is currently very atrocious; I make no excuse.
+
 
 # Information
 
