@@ -4,11 +4,20 @@ local function materialIndex(r,g,b)
   return r + g * Properties.MaterialLevels + b * Properties.MaterialLevels * Properties.MaterialLevels
 end
 
- materialNames = {rg= {"crystalline", "amorphous", "conglomerate", "igneous", "polished", "metallic", "native"},
+redNames = { {"terror", "terrorizing"}, {"fear", "fearful"}, {"uncertainty","uncertain"}, {"hope", "hopeful"}, {"joy", "joyful"} }
+greenNames = { {"disgust", "disgusting"}, {"dislike", "disliking"}, {"ambivalence", "ambivalent"}, {"like", "liking"}, {"love","loving"} }
+blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "indifferent"}, {"curious", "curiously"}, {"enthousiasm", "enthousiastic"}}
+
+ materialNames = {
+                       rg= {"crystalline", "amorphous", "conglomerate", "igneous", "polished", "metallic", "native"},
                        gb= {"shal", "pyr", "jasper", "beryl", "op", "fluor", "asgard"},
                        br= {"ite", "oclase", "yst", "al", "um", "ald", "uoise"} }
                        
  function generateMaterialName(r,g,b)
+  return redNames[r+1][2].." "..greenNames[g+1][2]..blueNames[b+1][1]
+end
+
+ function generateMaterialName1(r,g,b)
   return materialNames.rg[r+g+1].." "..materialNames.gb[g+b+1]..materialNames.br[b+r+1]
 end
 

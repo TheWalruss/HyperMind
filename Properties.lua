@@ -132,7 +132,7 @@ Properties.AimDrawRadius = 5
 Properties.AimFocusDistance = 180
 
 Properties.CollisionAlpha = 128
-Properties.MaterialLevels = 3
+Properties.MaterialLevels = 4
 
 Properties.PregenChunkBorder = 6
 
