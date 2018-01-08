@@ -5,16 +5,54 @@ local function materialIndex(r,g,b)
 end
 
 redNames = { {"terror", "terrorizing"}, {"fear", "fearful"}, {"uncertainty","uncertain"}, {"hope", "hopeful"}, {"joy", "joyful"} }
-greenNames = { {"disgust", "disgusting"}, {"dislike", "disliking"}, {"ambivalence", "ambivalent"}, {"like", "liking"}, {"love","loving"} }
-blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "indifferent"}, {"curious", "curiously"}, {"enthousiasm", "enthousiastic"}}
+greenNames = { {"disgust", "disgusting"}, {"dislike", "disliking"}, {"ambivalence", "ambivalent"}, {"approval", "liking"}, {"love","loving"} }
+blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "indifferent"}, {"curiousity", "curious"}, {"enthousiasm", "enthousiastic"}}
 
  materialNames = {
                        rg= {"crystalline", "amorphous", "conglomerate", "igneous", "polished", "metallic", "native"},
                        gb= {"shal", "pyr", "jasper", "beryl", "op", "fluor", "asgard"},
                        br= {"ite", "oclase", "yst", "al", "um", "ald", "uoise"} }
                        
+ -- Assuming r g and b are strictly ordered, then the strongest word goes last (as a noun), the second strongest goes first (adjective, primacy effect),
+ -- and the weakest goes last. If the weakest thing is uncertain, ambivalent, or indifferent, then forgetaboutit.
  function generateMaterialName(r,g,b)
-  return redNames[r+1][2].." "..greenNames[g+1][2]..blueNames[b+1][1]
+   local offset = Properties.MaterialLevels/2
+   local rabs, gabs, babs = math.abs(r - offset),math.abs(g - offset),math.abs(b - offset)
+  if rabs > gabs then
+    if babs > gabs then
+    --  r > b > g
+      if gabs ~= 0 then
+        return blueNames[r+1][2].." "..greenNames[g+1][2].." "..redNames[b+1][1]
+      else
+        return blueNames[r+1][2].." "..redNames[b+1][1]
+      end
+    else
+    -- r > g > b
+      if babs ~= 0 then
+        return greenNames[r+1][2].." "..blueNames[g+1][2].." "..redNames[b+1][1]
+      else
+        return greenNames[r+1][2].." "..redNames[b+1][1]
+      end
+    end
+  else
+    if babs > gabs then
+     -- b > g > r
+      if rabs ~= 0 then
+        return greenNames[r+1][2].." "..redNames[g+1][2].." "..blueNames[b+1][1]
+      else
+        return greenNames[r+1][2].." "..blueNames[b+1][1]
+      end
+    else
+     -- g > b > r
+      if rabs ~= 0 then
+        return blueNames[r+1][2].." "..redNames[g+1][2].." "..greenNames[b+1][1]
+      else
+        return blueNames[r+1][2].." "..greenNames[b+1][1]
+      end
+    end
+  end
+      
+  return "shit "..redNames[r+1][2].." "..greenNames[g+1][2].." "..blueNames[b+1][1]
 end
 
  function generateMaterialName1(r,g,b)
