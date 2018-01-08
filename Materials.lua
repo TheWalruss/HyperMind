@@ -7,11 +7,6 @@ end
 redNames = { {"terror", "terrorizing"}, {"fear", "fearful"}, {"uncertainty","uncertain"}, {"hope", "hopeful"}, {"joy", "joyful"} }
 greenNames = { {"disgust", "disgusting"}, {"dislike", "disliking"}, {"ambivalence", "ambivalent"}, {"approval", "liking"}, {"love","loving"} }
 blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "indifferent"}, {"curiousity", "curious"}, {"enthousiasm", "enthousiastic"}}
-
- materialNames = {
-                       rg= {"crystalline", "amorphous", "conglomerate", "igneous", "polished", "metallic", "native"},
-                       gb= {"shal", "pyr", "jasper", "beryl", "op", "fluor", "asgard"},
-                       br= {"ite", "oclase", "yst", "al", "um", "ald", "uoise"} }
                        
  -- Assuming r g and b are strictly ordered, then the strongest word goes last (as a noun), the second strongest goes first (adjective, primacy effect),
  -- and the weakest goes last. If the weakest thing is uncertain, ambivalent, or indifferent, then forgetaboutit.
@@ -52,11 +47,7 @@ blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "i
     end
   end
       
-  return "shit "..redNames[r+1][2].." "..greenNames[g+1][2].." "..blueNames[b+1][1]
-end
-
- function generateMaterialName1(r,g,b)
-  return materialNames.rg[r+g+1].." "..materialNames.gb[g+b+1]..materialNames.br[b+r+1]
+  return "ERROR:  "..tostring(r)..", "..tostring(g)..", "..tostring(b)
 end
 
 Materials = { list = {} }
