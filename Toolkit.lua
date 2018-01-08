@@ -19,7 +19,7 @@ Toolkit.PartTypes = {
                      "DeviceSpeed",
                      "Powermod"  } 
                        
--- >>5184000 unique tools
+-- >>1,24416e+12 unique tools (minus a few orders - can't have emitter-type teleporters, etc.)
 Toolkit.Operation = { "Probe",       -- marks pixel type (ok)
                       "Annihilator", -- removes pixels entirely (ok)
                   --    "Harvester",   -- harvests pixels for credits (todo)
@@ -31,6 +31,7 @@ Toolkit.Operation = { "Probe",       -- marks pixel type (ok)
                --       "Rope"         -- trails a rope with a hook (todo)
                --       "Illuminator"  -- flashlight (todo)
 	       --       "Cleaner",    -- gets rid of existing tools (todo)
+	       --       "Teleporter",    -- sets up teleportation network (todo)
                       }
 		      
 Toolkit.OperationStrength = { 1,2,3,4,5,6,7,8,9,10 }
