@@ -20,6 +20,11 @@ local function wrap(index, maxIndex)
   end
   return index
 end
+function Inventory:addPart(part)
+print('inventory.lua'..tostring(Inventory.parts)..ts('parts',Inventory.parts))
+  table.insert(Inventory.parts[part.partType],part)
+  --Inventory.currentToolIndex = #Inventory.tools
+end
 function Inventory:addTool(tool)
   table.insert(Inventory.tools,tool)
   Inventory.currentToolIndex = #Inventory.tools
@@ -62,6 +67,11 @@ function Inventory:discardCurrentTool()
 end
 
 function Inventory:draw()
+
+  if State.inventoryView then
+    return
+  end
+  
   love.graphics.setColor(0,0,0,155)
   love.graphics.print(tostring(Inventory.currentToolIndex).."::"..Inventory:getCurrentTool().Name,5+Properties.DropShadow,50+Properties.DropShadow)
   love.graphics.setColor(255,255,255,255)

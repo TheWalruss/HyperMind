@@ -1,5 +1,6 @@
 
 local WASD = {
+  pause = "return",
   jump = "w",
   left = "a",
   right = "d",
@@ -17,6 +18,7 @@ local WASD = {
   inventoryview = "1"
 }
 local WASD2 = {
+  pause = "return",
   jump = "space",
   left = "a",
   right = "d",
@@ -34,6 +36,7 @@ local WASD2 = {
   inventoryview = "1"
 }
 local ARROWS = {
+  pause = "return",
   jump = "up",
   left = "left",
   right = "right",

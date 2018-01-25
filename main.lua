@@ -27,8 +27,10 @@ require 'Extruder'
 require 'Materials'
 require 'Projection'
 require 'Wind'
+require 'ToolCraft'
 
 require 'trace'
+
 function love.load()
   Circle:Initialize()
   Materials:Initialize()
@@ -80,6 +82,7 @@ function love.draw()
   Extruder:draw()
   Projection:draw()
   Wind:draw()
+  ToolCraft:draw()
   trace.draw()
 end
 
@@ -122,15 +125,17 @@ function love.mousereleased(x,y,button,touch)
 end
 function love.keypressed(key,isrepeat)
 
-  if key == 'return' then
-    State.paused = not State.paused
+  if key == Properties.Keybindings.pause then
+    State.toggle("paused")
+  elseif key == Properties.Keybindings.inventoryview then
+    State.toggle("inventoryView")
   elseif key == 'tab' then 
     local tool = ToolBuilder:CreateRandomTool()
     Inventory:addTool(tool)
     print(tool.Name)
   elseif key == '2' then
     print(tostring(love.math.randomNormal(2,0)))
-  elseif key == '1' then 
+  elseif key == '3' then 
     local part = ToolBuilder:CreateRandomToolPart()
     Inventory:addPart(part)
     print(ts('part',part))
