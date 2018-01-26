@@ -15,6 +15,7 @@ local WASD = {
   usetool = "kp0",
   triggertool = "kp,",
   discardtool = "delete",
+  
   inventoryview = "1"
 }
 local WASD2 = {
@@ -33,6 +34,7 @@ local WASD2 = {
   usetool = "rshift",
   triggertool = "rctrl",
   discardtool = "delete",
+  
   inventoryview = "1"
 }
 local ARROWS = {
@@ -51,6 +53,7 @@ local ARROWS = {
   usetool = "e",
   triggertool = "r",
   discardtool = "x",
+  
   inventoryview = "1"
 }
 

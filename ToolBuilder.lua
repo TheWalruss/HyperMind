@@ -82,7 +82,7 @@ function ToolBuilder:CreateRandomPowerModSet()
 end
 function ToolBuilder:CreateRandomToolPartOfType(partType)
   if partType == "Powermod" then
-    return ToolBuilder:CreateRandomPowerModule()
+    return {partType=partType, value=ToolBuilder:CreateRandomPowerModule()}
   end
   
   local part = {partType=partType, 

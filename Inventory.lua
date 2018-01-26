@@ -28,6 +28,10 @@ end
 function Inventory:addTool(tool)
   table.insert(Inventory.tools,tool)
   Inventory.currentToolIndex = #Inventory.tools
+  
+  for _,part in ipairs(tool.parts) do
+    Inventory:addPart(part)
+  end
 end
 
 function minimalKit()
@@ -69,7 +73,7 @@ end
 function Inventory:draw()
 
   if State.inventoryView then
-    return
+   -- return
   end
   
   love.graphics.setColor(0,0,0,155)

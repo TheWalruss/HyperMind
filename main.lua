@@ -140,7 +140,11 @@ function love.keypressed(key,isrepeat)
     Inventory:addPart(part)
     print(ts('part',part))
   else
-    Player:keypressed(key,isrepeat)
+    if not State.inventoryView then
+	Player:keypressed(key,isrepeat)
+    else
+	ToolCraft:keypressed(key,isrepeat)
+    end
   end
 end
 function love.keyreleased(key)
