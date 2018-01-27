@@ -61,6 +61,7 @@ function Player:spawn(x, y, id)
   Player.MoveControl = {x = 0, y = 0}
   Player.AimControl = {y = 0}
   Player.GrappleControl = 0
+  Player.SailControl = 0
   
   Player.ToolControl = {use = 0, trigger = 0}
   Player.Powered = false
@@ -85,8 +86,17 @@ local function drawAim()
   love.graphics.circle('line',cx,cy,Properties.AimDrawRadius,10)
 end
 
+local function drawMods()
+  if Player.SailControl > 0 then
+    love.graphics.setColor(50,100,255,100)
+    local cx,cy = Camera:worldToScreen(Player.Pos.x,Player.Pos.y)
+    love.graphics.circle('fill',cx,cy,Properties.SailGraphicFactor*Properties.PlayerRadius,10)
+  end
+end
+
 function Player:draw()
   drawAim()
+  drawMods()
 end
 
 local function updateFreeFall(dt)
@@ -148,6 +158,15 @@ local function updateGrappleControl(dt)
   end
 end
 
+local function updateSailControl(dt)
+  if Player.SailControl > 0 then  
+    Player.CrossSection = Player.Radius * Player.Radius * Properties.SailFactor
+  else
+    Player.CrossSection = Player.Radius * Player.Radius
+  end
+end
+
+
 local function updateCrawling(dt)
   if Player.MoveControl.y < 0 then
     Player.JumpPower = clamp01(Player.JumpPower + Properties.LaunchPowerRate * dt)
@@ -192,6 +211,7 @@ function Player:update(dt)
     updateFreeFall(dt)
     updateAim(dt)
     updateGrappleControl(dt)
+    updateSailControl(dt)
     updateToolControl(dt)
   elseif Player.state == "crawling" then
     updateCrawling(dt)
@@ -200,6 +220,7 @@ function Player:update(dt)
     updateToolControl(dt)
   elseif Player.state == "grappling" then
     updateGrapple(dt)
+    updateSailControl(dt)
     updateToolControl(dt)
   end
   levelshift()
@@ -221,6 +242,8 @@ function Player:keypressed(key,isrepeat)
     Player.AimControl.y = -1
   elseif key == Properties.Keybindings.grapple then
     Player.GrappleControl = 1
+  elseif key == Properties.Keybindings.sail then
+    Player.SailControl = 1
   elseif key == Properties.Keybindings.power then
     Player.Powered = not Player.Powered
   elseif key == Properties.Keybindings.powerlock then
@@ -247,6 +270,8 @@ function Player:keyreleased(key)
     Player.AimControl.y = 0
   elseif key == Properties.Keybindings.grapple then
     Player.GrappleControl = 0
+  elseif key == Properties.Keybindings.sail then
+    Player.SailControl = 0
   elseif key == Properties.Keybindings.power then
     Player.Powered = not Player.Powered
   elseif key == Properties.Keybindings.powerlock then

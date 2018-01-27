@@ -8,6 +8,7 @@ local WASD = {
   aimup = "up",
   aimdown = "down",
   grapple = "space",
+  sail = "x",
   power = "lshift",
   powerlock = "capslock",
   nexttool = "pageup",
@@ -27,6 +28,7 @@ local WASD2 = {
   aimup = "up",
   aimdown = "down",
   grapple = "w",
+  sail = "x",
   power = "lshift",
   powerlock = "capslock",
   nexttool = "e",
@@ -46,6 +48,7 @@ local ARROWS = {
   aimup = "w",
   aimdown = "s",
   grapple = "space",
+  sail = "lalt",
   power = "lshift",
   powerlock = "capslock",
   nexttool = "d",
@@ -59,7 +62,7 @@ local ARROWS = {
 
 Properties = {}
 
-Properties.Identity = "MartialCombatBattleFight"
+Properties.Identity = "HyperMind"
 
 Properties.Keybindings = ARROWS
 
@@ -105,6 +108,9 @@ Properties.GrappleChainLinkLength = 5
 Properties.GrappleChainMaxLength = 500
 Properties.GrappleChainLinkMass = 0.05
 Properties.GrappleChainLinkInvMass = 20
+
+Properties.SailFactor = 50
+Properties.SailGraphicFactor = 5
 
 Properties.VehicleLifetime = 5
 Properties.SingleUseFactor = 2

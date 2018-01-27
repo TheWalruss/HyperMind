@@ -252,7 +252,7 @@ function Thing:draw()
       love.graphics.setColor(0,0,0,255)
     end
     local cx,cy = Camera:worldToScreen(thing.Pos.x,thing.Pos.y)
-    love.graphics.circle('fill',cx,cy,thing.Radius,5)
+    love.graphics.circle('fill',cx,cy,thing.Radius,10)
   end
 end
 
