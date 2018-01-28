@@ -65,7 +65,10 @@ end
 
 local function highlightCurrentTool()
   local ct = Inventory:getCurrentTool()
-  print(ts('ct',ct))
+  if not ct then
+    -- no tool to highlight
+    return
+  end
   for _,part in ipairs(ct.parts) do
     local partList = Inventory.parts[part.partType]
     rownr = 2
@@ -86,11 +89,7 @@ local function backgroundParts()
 end
 
 local function partEntry(part)
-  if part.partType == "Powermod" then
-    return part.value.partType .. " * " ..tostring(part.value.value)
-  else
     return tostring(part.value)
-  end
 end
 
 function ToolCraft:draw()
@@ -127,7 +126,58 @@ function ToolCraft:draw()
   --love.graphics.print(ts("tools",Inventory.tools),5,400)
 end
 
+local function setPart()
+  print("setPart")
+  local ct = Inventory:getCurrentTool()
+  if not ct then
+    -- no tool to set part on. Should create a new tool first.
+    print("no")
+    return
+  end
+
+  --find the highlighted part
+  local partType = Toolkit.PartTypes[currentColumn]
+  if partType then
+    local part = Inventory.parts[partType][currentRow]
+    if not part then
+     return
+    end
+    part.assigned = ct
+    print ('setpart:' .. ts('part',part))
+    if not ct.parts then
+      ct.parts={part}
+    else
+      local assigned = false
+      for index,cpart in ipairs(ct.parts) do
+        if cpart.partType == partType then
+	  cpart.assigned = nil
+	  ct.parts[index]=part
+	  assigned = true
+	end
+      end
+      if not assigned then
+        table.insert(ct.parts,part)
+      end
+    end
+  end
+  print(ts('ps',{partType=partType,currentColumn=currentColumn,currentRow=currentRow}))
+end
+
+local function update()
+  print("update")
+  local ct = Inventory:getCurrentTool()
+  if not ct then
+    -- no tool to update
+    return
+  end
+
+  ct = Inventory:setCurrentTool(ToolBuilder:UpdateTool(ct))
+end
+
 function ToolCraft:keypressed(key,isrepeat)
+  print("keypressed"..key)
+  print("newtool"..Properties.Keybindings.newtool)
+  print("setpart"..Properties.Keybindings.setpart)
   if key == Properties.Keybindings.right then
     currentColumn = currentColumn + 1
     if currentColumn > nrCols then
@@ -152,5 +202,12 @@ function ToolCraft:keypressed(key,isrepeat)
     Inventory:nextTool()
   elseif key == Properties.Keybindings.prevtool then
     Inventory:previousTool()
+  elseif key == Properties.Keybindings.newtool then
+    Inventory:addTool(ToolBuilder:NewTool())
+  elseif key == Properties.Keybindings.discardtool then
+    Inventory:discardCurrentTool()
+  elseif key == Properties.Keybindings.setpart then
+    setPart()
+    update()
   end
 end

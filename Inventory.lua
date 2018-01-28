@@ -20,11 +20,17 @@ local function wrap(index, maxIndex)
   end
   return index
 end
+
 function Inventory:addPart(part)
-print('inventory.lua'..tostring(Inventory.parts)..ts('parts',Inventory.parts))
   table.insert(Inventory.parts[part.partType],part)
-  --Inventory.currentToolIndex = #Inventory.tools
 end
+
+function Inventory:addPartSet(parts)
+  for _,part in ipairs(parts) do
+    Inventory:addPart(part)
+  end
+end
+
 function Inventory:addTool(tool)
   table.insert(Inventory.tools,tool)
   Inventory.currentToolIndex = #Inventory.tools
@@ -34,38 +40,34 @@ function Inventory:addTool(tool)
   end
 end
 
-function minimalKit()
-  if not Inventory.tools or #Inventory.tools == 0 then
-    Inventory.tools = {}
-    Inventory:addTool(Toolkit:createBasicTool())
-  end
-end
-
 function Inventory:getCurrentTool()
   return Inventory.tools[Inventory.currentToolIndex]
 end
 
+function Inventory:setCurrentTool(tool)
+  Inventory.tools[Inventory.currentToolIndex] = tool
+end
+
 function Inventory:nextTool()
-  Inventory.currentToolIndex = wrap(Inventory.currentToolIndex + 1,#Inventory.tools)
+  Inventory.currentToolIndex = Inventory.currentToolIndex and wrap(Inventory.currentToolIndex + 1,#Inventory.tools) or 0
   return Inventory:getCurrentTool()
 end
 
 function Inventory:previousTool()
-  Inventory.currentToolIndex = wrap(Inventory.currentToolIndex - 1,#Inventory.tools)
+  Inventory.currentToolIndex = Inventory.currentToolIndex and wrap(Inventory.currentToolIndex - 1,#Inventory.tools) or 0
   return Inventory:getCurrentTool()
 end
 
 function Inventory:throwCurrentTool()
-  local thrownTool = table.remove(Inventory.currentToolIndex,Inventory.tools)
-  minimalKit()
+  local thrownTool = table.remove(Inventory.tools,Inventory.currentToolIndex)
   Inventory.currentToolIndex = Inventory.currentToolIndex - 1
   Inventory:nextTool()
   return thrownTool
 end
 
 function Inventory:discardCurrentTool()
-  table.remove(Inventory.currentToolIndex,Inventory.tools)
-  minimalKit()
+  print("Inventory:discardCurrentTool")
+  table.remove(Inventory.tools,Inventory.currentToolIndex)
   Inventory.currentToolIndex = Inventory.currentToolIndex - 1
   Inventory:nextTool()
 end
@@ -74,6 +76,15 @@ function Inventory:draw()
 
   if State.inventoryView then
    -- return
+  end
+  
+  -- means we dont have any tools at all.
+  if not Inventory:getCurrentTool() then
+    love.graphics.setColor(50,0,0,155)
+    love.graphics.print("ERROR::NO_TOOL",5+Properties.DropShadow,50+Properties.DropShadow)
+    love.graphics.setColor(255,10,10,255)
+    love.graphics.print("ERROR::NO_TOOL",5,50)
+    return
   end
   
   love.graphics.setColor(0,0,0,155)

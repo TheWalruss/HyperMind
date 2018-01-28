@@ -17,7 +17,10 @@ local WASD = {
   triggertool = "kp,",
   discardtool = "delete",
   
-  inventoryview = "1"
+  inventoryview = "1",
+  newtool = "kp0",
+  canceltool ="delete",
+  setpart = "space"
 }
 local WASD2 = {
   pause = "return",
@@ -37,7 +40,9 @@ local WASD2 = {
   triggertool = "rctrl",
   discardtool = "delete",
   
-  inventoryview = "1"
+  inventoryview = "1",
+  newtool = "kp0",
+  setpart = "space"
 }
 local ARROWS = {
   pause = "return",
@@ -57,7 +62,9 @@ local ARROWS = {
   triggertool = "r",
   discardtool = "x",
   
-  inventoryview = "1"
+  inventoryview = "1",
+  newtool = "e",
+  setpart = "space"
 }
 
 Properties = {}

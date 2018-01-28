@@ -6,6 +6,7 @@
 -- Mouse aim??
 -- How to capture neat side-effects like "floaty bombs" and reward tricky shots (using timers, long shots, etc.) over easy shots (projection, crawlers, etc.)
 -- Trigger on things other than terrain - cleanup spiders?
+-- Coolest shit: Samsung LJN15390 Repeating Burst Emitter Spider Precision Torch Probe
 
 require 'Properties'
 require 'Level'
@@ -35,7 +36,8 @@ function love.load()
   Circle:Initialize()
   Materials:Initialize()
   Level:initialize()
-  Inventory:addTool(ToolBuilder:CreateBasicTool())
+  Inventory:addPartSet(ToolBuilder:CreateFullPartSet())
+  --Inventory:addTool(ToolBuilder:CreateBasicTool()) -- add this back when done testing tool crafting
   
   Player:spawn(200,200)
   Grapple:initialize()

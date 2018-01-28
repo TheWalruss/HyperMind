@@ -19,9 +19,9 @@ local function powerShotMod(tool, firePower, isPowered)
   end
   
   if tool.Powermod == "VehicleMaxPower" then
-    firePower = firePower * Properties.PowerFactor
+    firePower = firePower * tool.PowerFactor
   elseif tool.TriggerTime and tool.Powermod == "VehicleTime" then
-    tool.TriggerTime = tool.TriggerTime * Properties.PowerFactor
+    tool.TriggerTime = tool.TriggerTime * tool.PowerFactor
   end
   
   return firePower
@@ -40,7 +40,7 @@ end
 local function fireProjection(tool, aim, isPowered, sourcePos, firePowerfactor)
   local firePower = tool.VehicleMaxPower
   if isPowered and tool.Powermod == "VehicleMaxPower" then
-    firePower = firePower * Properties.PowerFactor
+    firePower = firePower * tool.PowerFactor
   end
   singleShotMod(tool)
   firePower = firePower * firePowerfactor
@@ -141,12 +141,16 @@ end
 local function limitThrownCharge(tool, isPowered)
   local maxPower = tool.VehicleMaxPower
   if isPowered and tool.Powermod == "VehicleMaxPower" then
-    maxPower = maxPower * Properties.PowerFactor
+    maxPower = maxPower * tool.PowerFactor
   end
   tool.ThrownCharge = math.min(maxPower,tool.ThrownCharge)
 end
 
 function Tool:updateControl(tool, useControl, triggerControl, dt, aim, isPowered, sourcePos, sourceVel)
+  if not tool then
+    -- no tool to control
+    return
+  end
   if useControl and tool.readyToUse then
     if tool.Vehicle ~= "Thrown" then
       Tool:fire(tool, aim, isPowered, sourcePos, sourceVel)

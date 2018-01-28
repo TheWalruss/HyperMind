@@ -212,6 +212,7 @@ local function updateSticking(thing)
   end
 end
 function Thing:update(dt, wind)
+  print("#things = "..#Thing.list)
   for _,thing in ipairs(Thing.list) do
     updateEmitter(thing, dt)
     if thing.VehicleTime then

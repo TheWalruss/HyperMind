@@ -17,6 +17,7 @@ Toolkit.PartTypes = {
                      "Reloadperiod",
                      "DeviceType",
                      "DeviceSpeed",
+                     "PowerFactor" ,
                      "Powermod"  } 
                        
 -- >>1,24416e+12 unique tools (minus a few orders - can't have emitter-type teleporters, etc.)
@@ -91,6 +92,8 @@ Toolkit.DeviceType = { "Handheld",        -- standard hand-held tool
 Toolkit.DeviceSpeed = { 1,2,3,4,5,6,7,8,9,10 }         
                       
                       
+Toolkit.PowerFactor = { 2,4,6,8,10 }		    -- the power-mod effectivity
+
 Toolkit.Powermod = { "OperationStrength",   -- increases the set of affected pixel types  (todo)
                      "EffectorSize",        -- increases the range of the effect
                      "VehicleTime",         -- increases the time of a timed, sticky, or smart vehicle 
@@ -98,10 +101,10 @@ Toolkit.Powermod = { "OperationStrength",   -- increases the set of affected pix
                      "SpecialPower",        -- increases the effectiveness of the special (higher % chance of neumann effect, more cascade vehicles, longer max time on the trigger)  (todo)
                      "DeviceSpeed",         -- increases the tracking and motive speed of a crane, drone, or tractor. (todo)
                      "VehicleMass",         -- increases the mass of effectors, to more easily plunge through the atmosphere (todo)
-                     "VehicleSize"          -- increases the size of effectors, to more easily catch the wind currents (todo)
+                     "VehicleSize"          -- increases/shrinks the size of effectors, to more easily catch the wind currents or plunge through atmosphere (todo)
                      }
 
-local HardwareCompanies = {
+Toolkit.HardwareCompanies = {
   "Swedish Space Corporation",
   "Asgardia",
   "SpaceX",
