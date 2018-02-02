@@ -22,7 +22,7 @@ Toolkit.PartTypes = {"Value",           -- -1, 0, 1 -- the emotional direction
                      "Utility"  } 
 
 Toolkit.Value = { 
-	"required" = true,-1, 0, 1 }
+	required = true,-1, 0, 1 }
 
 local function getIntensity()
   local i = {"required = true"}
@@ -34,24 +34,25 @@ end
 Toolkit.Intensity = getIntensity()
 
 Toolkit.Axis = {
-                "required" = true,
+                required = true,
                 "R","G","B"}
 
                        
 Toolkit.Effector = {
-                     "required" = true,
+                     required = true,
 	             "Neumann",     -- all contiguous pixels (todo) (todo: should work on all materials?)
                      "Blast",       -- a star-shaped pattern (todo)
                      "Sphere"       -- a circular pattern (todo > radius 10)
                      }
 
 Toolkit.EffectorSize = { 
+	      required=false, 
 	      3,
               --5, -- default
 	      8,10 }
 
 Toolkit.Vehicle = {
-                    "required" = true, -- Must have a vehicle
+                    required = true, -- Must have a vehicle
                     "Torch",       -- a close-range projection-like vehicle (todo)
                     "Thrown",      -- a lobbed projectile (ok)
                     "Gun",         -- a projectile with fixed power (ok)
@@ -59,12 +60,12 @@ Toolkit.Vehicle = {
                     }
 		    
 Toolkit.VehiclePower = { 
-	                   "required"=false, 
+	                   required=false, 
                       --4, --default
                   8,16 }
 
 Toolkit.VehicleTrigger = { 
-	                   "required"=false, 
+	                   required=false, 
                            --"Contact-trigger", -- no attribute (default)
                            "Timed",     -- timed vehicles don't detonate at contact, but after some time (todo timer)
                            "Sticky",    -- a timed vehicle that doesn't roll, slide, or bounce 
@@ -72,66 +73,66 @@ Toolkit.VehicleTrigger = {
                            }
 
 Toolkit.ManualTrigger = {
-	             "required"=false, --default no manual trigger
+	             required=false, --default no manual trigger
                      true }
 
 Toolkit.VehicleTime = {
-	             "required"=false,
+	             required=false,
                      1,2,3,
 		     --5, --default
 		     8,13,21 }
 
 Toolkit.VehicleMass = {
-	             "required"=false,
+	             required=false,
                      1,
 		     -- 4, --default
 		     10 }
 
 Toolkit.VehicleSize = { 
-	             "required"=false,
+	             required=false,
                      1,3,
 		    -- 5, --default
 		     8,10 }
 
 Toolkit.VehicleSub = {
-	             "required"=false, -- VehicleSubAmount without VehicleSub is stupid
+	             required=false, -- VehicleSubAmount without VehicleSub is stupid
                     "Cascade",        -- Vehicle produces a number of child vehicles at trigger time (inherit all attributes except special, smaller effect size) 
                     "Emitter"         -- Vehicle emits vehiclets throughout its lifetime (inherit all attributes except special, smaller effect size) 
                     }
 
 Toolkit.VehicleSubAmount = { 
-	             "required"=false, -- VehicleSub without VehicleSubAmount is stupid
+	             required=false, -- VehicleSub without VehicleSubAmount is stupid
 	2,4,6,8,10 } -- (todo)
 
 Toolkit.Firemode = { 
-	             "required"=false,
+	             required=false,
         --             "Semi-automatic", -- One vehicle per trigger (ok) default
                      "Burst",          -- A spread of vehicles per trigger (ok)
-                     "Automatic"       -- Holding the trigger produces a stream of vehicles (ok)
+                     "Automatic",      -- Holding the trigger produces a stream of vehicles (ok)
                      "Autoburst"       -- Holding the trigger produces a torrent of vehicles (todo)
                      }
 
 Toolkit.AutoReload = {
-	                 "required"=false, -- default means you need to hit the reload button every shot
+	                 required=false, -- default means you need to hit the reload button every shot
                          "Standard",   -- Tool has a long refractory period
                          "Fast"   -- Tool has a short refractory period
                          }
                     
 Toolkit.Bot = { 
-	               "required"=false,  -- default is handheld
+	               required=false,  -- default is handheld
                        "Crane",           -- stationary device which works autonomously   (todo)
                        "Drone",           -- mobile device which works autonomously   (todo)
                       }
                       
 Toolkit.DeviceSpeed = {
-	             "required"=false,
+	             required=false,
                      1,2,3,4,
 		     --5, --default
 		     6,7,8,9,10 }        
                      
 
 Toolkit.Utility = {  
-	             "required"=false,
+	             required=false,
                      "Probe",       -- marks pixel type (ok)
                      "Illuminator",  -- flashlight (todo)
 	             "Cleaner",    -- gets rid of existing tools (todo)

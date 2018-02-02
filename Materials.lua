@@ -12,9 +12,9 @@ end
 --greenNames = { {"disgust", "disgusting"}, {"dislike", "disliking"}, {"ambivalence", "ambivalent"}, {"approval", "liking"}, {"love","loving"} }
 --blueNames = { {"hate","hateful"}, {"concern", "concerning"}, {"indifference", "indifferent"}, {"curiousity", "curious"}, {"enthousiasm", "enthousiastic"}}
 
-BlueNames = { {"despair", "despairing"}, {"unhappiness", "unhappy"}, {"ambivalence", "ambivalent"}, {"happiness", "happy"}, {"euphoria", "euphoric"}}
+blueNames = { {"despair", "despairing"}, {"unhappiness", "unhappy"}, {"ambivalence", "ambivalent"}, {"happiness", "happy"}, {"euphoria", "euphoric"}}
 greenNames = { { "terror", "terrorizing"}, {"fear", "fearful"}, {"numbness", "numbing"}, {"confidence","confident"},{"certainty","certain"}}
-RedNames = {{"rage", "raging"}, {"anger","angry"},{"indifference","indifferent"}, {"passion", "passionate"}, {"love","loving"}}
+redNames = {{"rage", "raging"}, {"anger","angry"},{"indifference","indifferent"}, {"passion", "passionate"}, {"love","loving"}}
 
                        
  -- Assuming r g and b are strictly ordered, then the strongest word goes last (as a noun), the second strongest goes first (adjective, primacy effect),
