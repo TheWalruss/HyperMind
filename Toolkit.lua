@@ -1,122 +1,148 @@
+require 'Properties'
+
 Toolkit = {}
 
-Toolkit.PartTypes = {
-                     "Operation",
-                     "OperationStrength",
-                     "Effector",
-		     "EffectorSize",
-                     "Vehicle",
-                     "VehicleMaxPower",
-                     "VehicleAttribute",
-                     "VehicleTime",
-                     "VehicleMass",
-                     "VehicleSize",
-                     "Special",
-                     "SpecialPower",
+Toolkit.PartTypes = {"Value",           -- -1, 0, 1 -- the emotional direction
+	             "Intensity",	-- 1 to Properties.MaterialLevels
+		     "Axis",            -- R, G, B
+                     "Effector",        -- The shape of the effect
+		     "EffectorSize",    -- The size or area
+                     "Vehicle",         -- How the effector travels
+                     "VehiclePower",    -- Affects torch range (todo), throwing distance, gun velocity, and projection penetration (todo)
+                     "VehicleTrigger",  -- How the vehicle's effect is triggered
+                     "ManualTrigger",   -- Whether the effect can also be triggered manually
+                     "VehicleTime",     -- Lifetime of the vehicle and projection distance (todo)
+                     "VehicleMass",     -- (todo- projection?)
+                     "VehicleSize",     -- Radius of vehicle (todo- projection?)
+                     "VehicleSub",
+                     "VehicleSubAmount",
                      "Firemode",
-                     "Reloadperiod",
-                     "DeviceType",
-                     "DeviceSpeed",
-                     "PowerFactor" ,
-                     "Powermod"  } 
+                     "AutoReload",
+                     "Bot",
+                     "Utility"  } 
+
+Toolkit.Value = { 
+	"required" = true,-1, 0, 1 }
+
+local function getIntensity()
+  local i = {"required = true"}
+  for intensity = 0, Properties.MaterialLevels do
+    i[intensity] = intensity
+  end
+  return i
+end
+Toolkit.Intensity = getIntensity()
+
+Toolkit.Axis = {
+                "required" = true,
+                "R","G","B"}
+
                        
--- >>1,24416e+12 unique tools (minus a few orders - can't have emitter-type teleporters, etc.)
-Toolkit.Operation = { "Probe",       -- marks pixel type (ok)
-                      "Annihilator", -- removes pixels entirely (ok)
-                      "Converter",   -- changes pixel color (todo)
-                      "Dilator",     -- expands pixels radially or in crystals (depending on pixel type) (ok - todo: should place set pixel type?)
-                 --todo    "Harvester",   -- harvests pixels for credits (todo)
-                 --todo     "Extruder",    -- expands pixels over time with angular or sinusoidal branches (depending on pixel type), previously "vegetation" (todo)
-                 --todo     "Hacker",      -- hacks stuff (todo)
-                 --todo     "Thief",       -- steals stuff (todo)
-                 --todo     "Rope",         -- trails a rope with a hook (todo)
-                --todo      "Illuminator",  -- flashlight (todo)
-	        --todo      "Cleaner",    -- gets rid of existing tools (todo)
-	        --todo      "Teleporter"    -- sets up teleportation network (todo)
-                      }
-		      
-Toolkit.OperationStrength = { 1,2,3,4,5,6,7,8,9,10 }
-                       
-Toolkit.Effector = { "Precision",     -- a single pixel (todo: should work on all materials?)
-                     "Blast",         -- a star-shaped pattern (todo)
-                     "Sphere"        -- a circular pattern (todo > radius 10)
+Toolkit.Effector = {
+                     "required" = true,
+	             "Neumann",     -- all contiguous pixels (todo) (todo: should work on all materials?)
+                     "Blast",       -- a star-shaped pattern (todo)
+                     "Sphere"       -- a circular pattern (todo > radius 10)
                      }
 
-Toolkit.EffectorSize = { 3,5,8,10 }
+Toolkit.EffectorSize = { 
+	      3,
+              --5, -- default
+	      8,10 }
 
-Toolkit.Vehicle = {--todo "Torch",       -- a close-range projection-like vehicle (todo)
+Toolkit.Vehicle = {
+                    "required" = true, -- Must have a vehicle
+                    "Torch",       -- a close-range projection-like vehicle (todo)
                     "Thrown",      -- a lobbed projectile (ok)
                     "Gun",         -- a projectile with fixed power (ok)
                     "Projection"   -- a ray (laser) (ok)
                     }
 		    
-Toolkit.VehicleMaxPower = { 1,2,4,8,16 }
+Toolkit.VehiclePower = { 
+	                   "required"=false, 
+                      --4, --default
+                  8,16 }
 
-Toolkit.VehicleAttribute = { "Contact-trigger", -- no attribute (ok)
-                             "Timed",     -- timed vehicles don't detonate at contact, but after some time (todo timer)
-                             "Sticky",    -- a timed vehicle that doesn't roll, slide, or bounce 
-                             "Spider"      -- a timed vehicle which crawls along surfaces
-                              }
-                              
-Toolkit.VehicleTime = { 1,2,3,4,5,6,7,8,9,10 }
+Toolkit.VehicleTrigger = { 
+	                   "required"=false, 
+                           --"Contact-trigger", -- no attribute (default)
+                           "Timed",     -- timed vehicles don't detonate at contact, but after some time (todo timer)
+                           "Sticky",    -- a timed vehicle that doesn't roll, slide, or bounce 
+                           "Spider"      -- a timed vehicle which crawls along surfaces
+                           }
 
-Toolkit.VehicleMass = { 1,4,10 }
+Toolkit.ManualTrigger = {
+	             "required"=false, --default no manual trigger
+                     true }
 
-Toolkit.VehicleSize = { 1,3,5,8,10 }
+Toolkit.VehicleTime = {
+	             "required"=false,
+                     1,2,3,
+		     --5, --default
+		     8,13,21 }
 
-Toolkit.Special = { "Standard",       -- No special
-                    "Manual-trigger", -- Vehicles can also be detonated manually - does not remove contact or time trigger
-                 --todo   "Neumann",        -- Operation replicates to adjacent pixels
+Toolkit.VehicleMass = {
+	             "required"=false,
+                     1,
+		     -- 4, --default
+		     10 }
+
+Toolkit.VehicleSize = { 
+	             "required"=false,
+                     1,3,
+		    -- 5, --default
+		     8,10 }
+
+Toolkit.VehicleSub = {
+	             "required"=false, -- VehicleSubAmount without VehicleSub is stupid
                     "Cascade",        -- Vehicle produces a number of child vehicles at trigger time (inherit all attributes except special, smaller effect size) 
                     "Emitter"         -- Vehicle emits vehiclets throughout its lifetime (inherit all attributes except special, smaller effect size) 
                     }
 
-Toolkit.SpecialPower = { 2,4,6,8,10 }		    -- (What is this supposed to do?)
+Toolkit.VehicleSubAmount = { 
+	             "required"=false, -- VehicleSub without VehicleSubAmount is stupid
+	2,4,6,8,10 } -- (todo)
 
-Toolkit.Firemode = { "Semi-automatic", -- One vehicle per trigger (ok)
+Toolkit.Firemode = { 
+	             "required"=false,
+        --             "Semi-automatic", -- One vehicle per trigger (ok) default
                      "Burst",          -- A spread of vehicles per trigger (ok)
                      "Automatic"       -- Holding the trigger produces a stream of vehicles (ok)
+                     "Autoburst"       -- Holding the trigger produces a torrent of vehicles (todo)
                      }
 
-Toolkit.Reloadperiod = { "Single-Use", -- Tool can only be used once.  (ok - todo: either remove from inventory or provide reload mechanic)
+Toolkit.AutoReload = {
+	                 "required"=false, -- default means you need to hit the reload button every shot
                          "Standard",   -- Tool has a long refractory period
-                         "Repeating"   -- Tool has a short refractory period
+                         "Fast"   -- Tool has a short refractory period
                          }
                     
-Toolkit.DeviceType = { "Handheld",        -- standard hand-held tool
-                --todo       "Crane",           -- stationary device which works autonomously   (todo)
-                --todo       "Drone",           -- mobile device which works autonomously   (todo)
-                --todo       "Tractor"          -- large mobile unit operated by player  (todo)
+Toolkit.Bot = { 
+	               "required"=false,  -- default is handheld
+                       "Crane",           -- stationary device which works autonomously   (todo)
+                       "Drone",           -- mobile device which works autonomously   (todo)
                       }
                       
-Toolkit.DeviceSpeed = { 1,2,3,4,5,6,7,8,9,10 }         
-                      
-                      
-Toolkit.PowerFactor = { 2,4,6,8,10 }		    -- the power-mod effectivity
+Toolkit.DeviceSpeed = {
+	             "required"=false,
+                     1,2,3,4,
+		     --5, --default
+		     6,7,8,9,10 }        
+                     
 
-Toolkit.Powermod = { "OperationStrength",   -- increases the set of affected pixel types  (todo)
-                     "EffectorSize",        -- increases the range of the effect
-                     "VehicleTime",         -- increases the time of a timed, sticky, or smart vehicle 
-                     "VehicleMaxPower",     -- increases the max throwing power of a grenade, the fixed power of a gun, and no effect on a ray. (ok/todo)
-                     "SpecialPower",        -- increases the effectiveness of the special (higher % chance of neumann effect, more cascade vehicles, longer max time on the trigger)  (todo)
-                     "DeviceSpeed",         -- increases the tracking and motive speed of a crane, drone, or tractor. (todo)
-                     "VehicleMass",         -- increases the mass of effectors, to more easily plunge through the atmosphere (todo)
-                     "VehicleSize"          -- increases/shrinks the size of effectors, to more easily catch the wind currents or plunge through atmosphere (todo)
-                     }
-
-Toolkit.HardwareCompanies = {
-  "Swedish Space Corporation",
-  "Asgardia",
-  "SpaceX",
-  "Planetary Resources",
-  "Deep Space Industries",
-  "Roscosmos",
-  "NASA",
-  "4Frontiers Corporation",
-  "Blue Origin",
-  "Bigelow",
-  "Interorbital Systems",
-  "United Launch Alliance",
-  "United Space Alliance",
-  "XCOR Aerospace"
-}
+Toolkit.Utility = {  
+	             "required"=false,
+                     "Probe",       -- marks pixel type (ok)
+                     "Illuminator",  -- flashlight (todo)
+	             "Cleaner",    -- gets rid of existing tools (todo)
+                     "Rope",         -- trails a rope with a hook (todo)
+	             "Teleporter"    -- sets up teleportation network (todo)
+--                      "Annihilator", -- removes pixels entirely (ok)
+--                      "Converter",   -- changes pixel color (todo)
+--                      "Dilator",     -- expands pixels radially or in crystals (depending on pixel type) (ok - todo: should place set pixel type?)
+                 --todo    "Harvester",   -- harvests pixels for credits (todo)
+                 --todo     "Extruder",    -- expands pixels over time with angular or sinusoidal branches (depending on pixel type), previously "vegetation" (todo)
+                 --todo     "Hacker",      -- hacks stuff (todo)
+                 --todo     "Thief",       -- steals stuff (todo)
+                      }
+		      
