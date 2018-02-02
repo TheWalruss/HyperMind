@@ -23,28 +23,28 @@ Toolkit.PartTypes = {
 -- >>1,24416e+12 unique tools (minus a few orders - can't have emitter-type teleporters, etc.)
 Toolkit.Operation = { "Probe",       -- marks pixel type (ok)
                       "Annihilator", -- removes pixels entirely (ok)
-                  --    "Harvester",   -- harvests pixels for credits (todo)
                       "Converter",   -- changes pixel color (todo)
-                      "Dilator"--,     -- expands pixels radially or in crystals (depending on pixel type) (ok - todo: should place set pixel type?)
-                --      "Extruder",    -- expands pixels over time with angular or sinusoidal branches (depending on pixel type), previously "vegetation" (todo)
-               --       "Hacker",      -- hacks stuff (todo)
-               --       "Thief",       -- steals stuff (todo)
-               --       "Rope"         -- trails a rope with a hook (todo)
-               --       "Illuminator"  -- flashlight (todo)
-	       --       "Cleaner",    -- gets rid of existing tools (todo)
-	       --       "Teleporter",    -- sets up teleportation network (todo)
+                      "Dilator",     -- expands pixels radially or in crystals (depending on pixel type) (ok - todo: should place set pixel type?)
+                 --todo    "Harvester",   -- harvests pixels for credits (todo)
+                 --todo     "Extruder",    -- expands pixels over time with angular or sinusoidal branches (depending on pixel type), previously "vegetation" (todo)
+                 --todo     "Hacker",      -- hacks stuff (todo)
+                 --todo     "Thief",       -- steals stuff (todo)
+                 --todo     "Rope",         -- trails a rope with a hook (todo)
+                --todo      "Illuminator",  -- flashlight (todo)
+	        --todo      "Cleaner",    -- gets rid of existing tools (todo)
+	        --todo      "Teleporter"    -- sets up teleportation network (todo)
                       }
 		      
 Toolkit.OperationStrength = { 1,2,3,4,5,6,7,8,9,10 }
                        
 Toolkit.Effector = { "Precision",     -- a single pixel (todo: should work on all materials?)
-                    -- "Blast",         -- a star-shaped pattern (todo)
+                     "Blast",         -- a star-shaped pattern (todo)
                      "Sphere"        -- a circular pattern (todo > radius 10)
                      }
 
 Toolkit.EffectorSize = { 3,5,8,10 }
 
-Toolkit.Vehicle = { "Torch",       -- a close-range projection-like vehicle (todo)
+Toolkit.Vehicle = {--todo "Torch",       -- a close-range projection-like vehicle (todo)
                     "Thrown",      -- a lobbed projectile (ok)
                     "Gun",         -- a projectile with fixed power (ok)
                     "Projection"   -- a ray (laser) (ok)
@@ -66,7 +66,7 @@ Toolkit.VehicleSize = { 1,3,5,8,10 }
 
 Toolkit.Special = { "Standard",       -- No special
                     "Manual-trigger", -- Vehicles can also be detonated manually - does not remove contact or time trigger
-                    "Neumann",        -- Operation replicates to adjacent pixels
+                 --todo   "Neumann",        -- Operation replicates to adjacent pixels
                     "Cascade",        -- Vehicle produces a number of child vehicles at trigger time (inherit all attributes except special, smaller effect size) 
                     "Emitter"         -- Vehicle emits vehiclets throughout its lifetime (inherit all attributes except special, smaller effect size) 
                     }
@@ -84,9 +84,9 @@ Toolkit.Reloadperiod = { "Single-Use", -- Tool can only be used once.  (ok - tod
                          }
                     
 Toolkit.DeviceType = { "Handheld",        -- standard hand-held tool
-                    --   "Crane",           -- stationary device which works autonomously   (todo)
-                     --  "Drone",           -- mobile device which works autonomously   (todo)
-                   --    "Tractor"          -- large mobile unit operated by player  (todo)
+                --todo       "Crane",           -- stationary device which works autonomously   (todo)
+                --todo       "Drone",           -- mobile device which works autonomously   (todo)
+                --todo       "Tractor"          -- large mobile unit operated by player  (todo)
                       }
                       
 Toolkit.DeviceSpeed = { 1,2,3,4,5,6,7,8,9,10 }         
@@ -110,8 +110,13 @@ Toolkit.HardwareCompanies = {
   "SpaceX",
   "Planetary Resources",
   "Deep Space Industries",
-  "Foxconn",
-  "Tata",
-  "Samsung",
-  "Koch"
+  "Roscosmos",
+  "NASA",
+  "4Frontiers Corporation",
+  "Blue Origin",
+  "Bigelow",
+  "Interorbital Systems",
+  "United Launch Alliance",
+  "United Space Alliance",
+  "XCOR Aerospace"
 }
